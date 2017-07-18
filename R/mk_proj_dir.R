@@ -44,5 +44,7 @@ mk_proj_dir <- function(){
 
   system("touch ./3-resources/.gitkeep")
 
+  system("touch .nojekyll")
+
   return(NULL)
 }

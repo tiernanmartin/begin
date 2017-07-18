@@ -1,7 +1,7 @@
 Package: begin
 Type: Package
 Title: A set of functions useful when starting a project
-Version: 0.1.0
+Version: 0.1.1
 Author: Tiernan Martin
 Maintainer: Tiernan Martin <tiernan.martin@gmail.com>
 Description: A few functions that make setting up a project easier and
