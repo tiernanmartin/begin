@@ -6,6 +6,9 @@
 \usage{
 capture_dir(root_path = "/home/rstudio/github/")
 }
+\arguments{
+\item{root_path}{a character string of a parent directory}
+}
 \description{
 \code{capture_dir} creates a \code{tibble} containing the path of each level
 of child of a given parent directory.

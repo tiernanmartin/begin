@@ -3,11 +3,13 @@
 #' \code{capture_dir} creates a \code{tibble} containing the path of each level
 #' of child of a given parent directory.
 #'
+#' @param root_path a character string of a parent directory
 #' @importFrom magrittr "%>%"
 #' @importFrom stringr "str_split"
 #' @import purrr
 #' @import tibble
-#' @import dplyr
+#' @importFrom dplyr "rename"
+#' @importFrom dplyr "mutate"
 #' @export
 capture_dir <- function(root_path = "/home/rstudio/github/"){
 
