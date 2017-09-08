@@ -2,3 +2,8 @@
 
 export(capture_dir)
 export(mk_proj_dir)
+import(dplyr)
+import(purrr)
+import(tibble)
+importFrom(magrittr,"%>%")
+importFrom(stringr,"str_split")
