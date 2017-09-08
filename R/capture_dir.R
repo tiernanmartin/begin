@@ -8,8 +8,9 @@
 #' @importFrom stringr "str_split"
 #' @import purrr
 #' @import tibble
-#' @importFrom dplyr "rename"
-#' @importFrom dplyr "mutate"
+#' @import dplyr
+#' @import tidyr
+#' @import toOrdinal
 #' @export
 capture_dir <- function(root_path = "/home/rstudio/github/"){
 
@@ -20,6 +21,12 @@ capture_dir <- function(root_path = "/home/rstudio/github/"){
     rowid_to_column("ROWID") %>%
     rename(FULLPATH = value) %>%
     mutate(DIR_LIST = map(FULLPATH, ~ str_split(.x,pattern = "/") %>% unlist),
-           LEVEL = map_int(DIR_LIST,length))
+           DIR_LIST_UNNEST = DIR_LIST,
+           DEPTH = map_int(DIR_LIST,length)) %>%
+    unnest(DIR_LIST_UNNEST,.drop = F) %>%
+    group_by(ROWID) %>%
+    mutate(id = row_number(),
+           id = map_chr(id,toOrdinal)) %>%
+    spread(id,DIR_LIST_UNNEST)
 
 }
