@@ -12,9 +12,11 @@
 #' @export
 mk_proj_dir <- function(){
 
-  # Read "captured" directory file
+  # Read the directory template file from /data
 
-  f <- read_rds("./inst/proj-dir.rds")
+  data("template")
+
+  f <- template
 
   # Create directories
 

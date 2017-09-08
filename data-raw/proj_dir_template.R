@@ -1,3 +1,4 @@
+template <-
 tibble::tribble(
   ~ROWID,                               ~FULLPATH,                                       ~DIR_LIST, ~DEPTH,              ~X1st,           ~X2nd,      ~X3rd,
       1L,                                "1-data",                                     c("1-data"),     1L,           "1-data",              NA,         NA,
@@ -19,3 +20,6 @@ tibble::tribble(
      17L,        "2-communication/others/spatial",       c("2-communication", "others", "spatial"),     3L,  "2-communication",        "others",  "spatial",
      18L,                           "3-resources",                                c("3-resources"),     1L,      "3-resources",              NA,         NA
   )
+
+readr::write_rds(template, "data-raw/proj_dir.rds")
+devtools::use_data(template, overwrite = TRUE, compress = 'xz')
