@@ -4,6 +4,7 @@
 #' of child of a given parent directory.
 #'
 #' @param root_path a character string of a parent directory
+#' @param regex_string a regular expression character string use to match directory names
 #' @importFrom magrittr "%>%"
 #' @importFrom stringr "str_split"
 #' @import purrr
@@ -12,10 +13,10 @@
 #' @import tidyr
 #' @import toOrdinal
 #' @export
-capture_dir <- function(root_path = "/home/rstudio/github/"){
+capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S]*'){
 
   list.dirs(root_path, full.names = F) %>%
-    keep(grepl("^[[:digit:]]",.)) %>%
+    keep(grepl(regex_string,.)) %>%
     unique %>%
     as_tibble() %>%
     rowid_to_column("ROWID") %>%

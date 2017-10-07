@@ -4,10 +4,12 @@
 \alias{capture_dir}
 \title{Convert child directories into a tibble}
 \usage{
-capture_dir(root_path = "/home/rstudio/github/")
+capture_dir(root_path = "./rstudio/github/", regex_string = "[\\\\s\\\\S]*")
 }
 \arguments{
 \item{root_path}{a character string of a parent directory}
+
+\item{regex_string}{a regular expression character string use to match directory names}
 }
 \description{
 \code{capture_dir} creates a \code{tibble} containing the path of each level
