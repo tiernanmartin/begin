@@ -15,6 +15,8 @@
 #' @export
 capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S]*'){
 
+  data(ordinal_numbers_1to10)
+
   list.dirs(root_path, full.names = F) %>%
     keep(grepl(regex_string,.)) %>%
     unique %>%
@@ -27,7 +29,9 @@ capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S
     unnest(DIR_LIST_UNNEST,.drop = F) %>%
     group_by(ROWID) %>%
     mutate(id = row_number(),
-           id = map_chr(id,toOrdinal)) %>%
+           id = map_chr(id,~ ordinal_numbers_1to10[.x,'ord_word'] %>% pull),
+           id = factor(id, levels = ordinal_numbers_1to10$ord_word)) %>%
+    arrange(id) %>%
     spread(id,DIR_LIST_UNNEST)
 
 }

@@ -6,6 +6,7 @@
 #' files (if necessary).
 #'
 #' @importFrom readr "read_rds"
+#' @importFrom dplyr "pull"
 #' @importFrom purrr "walk"
 #' @importFrom magrittr "%>%"
 #' @importFrom stringr "str_c"
