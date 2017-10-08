@@ -50,10 +50,10 @@ mk_shiny_pkg_dir <- function(remove_files = FALSE){
   }
 
 
-   # Add `.gitkeep` files to each folder
-   c('man', 'R') %>%
-     map_chr(~ str_c('touch ',.x,"/.gitkeep",collapse = "")) %>%
-     walk(system)
+  # Add `.gitkeep` files to each folder
+  c('man', 'R', pluck(f, "FULLPATH")) %>%
+    map_chr(~ str_c('touch ',.x,"/.gitkeep",collapse = "")) %>%
+    walk(system)
 
   # system("touch .nojekyll")  # this is no longer necessary
   return(NULL)
