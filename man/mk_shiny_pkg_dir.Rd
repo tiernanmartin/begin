@@ -4,14 +4,16 @@
 \alias{mk_shiny_pkg_dir}
 \title{Make a Shiny Application Package directory}
 \usage{
-mk_shiny_pkg_dir()
+mk_shiny_pkg_dir(remove_files = FALSE)
+}
+\arguments{
+\item{remove_files}{logical, whether to delete all files in \code{man/} and \code{R/} (defaults to \code{FALSE})}
 }
 \description{
 \code{mk_shiny_pkg_dir} creates a directory of folders for a Shiny Application package.
 }
-\details{
-These folders will also contain \code{/ui.R}, \code{/server.R}, and \code{/global.R}.
-}
 \note{
-This file director comes from the a \href{https://community.rstudio.com/t/best-practices-shiny-development/1694/5?u=tiernan}{post} in the RStudio Community Forum
+These folders will also contain \code{/ui.R}, \code{/server.R}, and \code{/global.R}.
+
+This file directory comes from a \href{https://community.rstudio.com/t/best-practices-shiny-development/1694/5?u=tiernan}{post} in the \href{https://community.rstudio.com/}{RStudio Community Forum}.
 }
