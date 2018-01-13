@@ -19,7 +19,8 @@ capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S
 
   paths_tbl <- root_path %>%
     list.dirs(full.names = F) %>%
-    keep(grepl(regex_string,.)) %>%
+    discard(str_detect(.,"^\\.")) %>%
+    discard(~ nchar(.x) < 1) %>%
     unique %>%
     as_tibble() %>%
     rowid_to_column("ROWID") %>%
