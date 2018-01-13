@@ -17,12 +17,15 @@ capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S
 
   data(ordinal_numbers_1to10)
 
-  list.dirs(root_path, full.names = F) %>%
+  paths_tbl <- root_path %>%
+    list.dirs(full.names = F) %>%
     keep(grepl(regex_string,.)) %>%
     unique %>%
     as_tibble() %>%
     rowid_to_column("ROWID") %>%
-    rename(FULLPATH = value) %>%
+    rename(FULLPATH = value)
+
+  paths_long <- paths_tbl %>%
     mutate(DIR_LIST = map(FULLPATH, ~ str_split(.x,pattern = "/") %>% unlist),
            DIR_LIST_UNNEST = DIR_LIST,
            DEPTH = map_int(DIR_LIST,length)) %>%
@@ -32,6 +35,11 @@ capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S
            id = map_chr(id,~ ordinal_numbers_1to10[.x,'ord_word'] %>% pull),
            id = factor(id, levels = ordinal_numbers_1to10$ord_word)) %>%
     arrange(id) %>%
+    ungroup
+
+  paths_ready <- paths_long %>%
     spread(id,DIR_LIST_UNNEST)
+
+  return(paths_ready)
 
 }
