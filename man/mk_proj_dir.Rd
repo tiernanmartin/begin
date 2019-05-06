@@ -2,14 +2,20 @@
 % Please edit documentation in R/mk_proj_dir.R
 \name{mk_proj_dir}
 \alias{mk_proj_dir}
-\title{Make a project directory}
+\title{Make a Project Directory}
 \usage{
-mk_proj_dir()
+mk_proj_dir(template)
+}
+\arguments{
+\item{template}{A \code{tibble} object containing a file directory structure.
+  The available templates are:
+  \itemize{
+    \item \code{\link{template_basic}()}
+    \item \code{\link{template_osf_package}()}
+    \item \code{\link{template_shiny_package}()}
+}}
 }
 \description{
 \code{mk_proj_dir} creates a directory of folders for a generic project.
-}
-\details{
-These folders will also contain \code{.gitkeep} or \code{.gitignore}
-files (if necessary).
+  These folders will also contain \code{.gitkeep} or \code{.gitignore} files (if necessary).
 }

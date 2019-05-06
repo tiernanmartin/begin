@@ -19,27 +19,27 @@ capture_dir <- function(root_path = "./rstudio/github/", regex_string = '[\\s\\S
 
   paths_tbl <- root_path %>%
     list.dirs(full.names = F) %>%
-    discard(str_detect(.,"^\\.")) %>%
-    discard(~ nchar(.x) < 1) %>%
+    purrr::discard(stringr::str_detect(.,"^\\.")) %>%
+    purrr::discard(~ nchar(.x) < 1) %>%
     unique %>%
-    as_tibble() %>%
-    rowid_to_column("ROWID") %>%
-    rename(FULLPATH = value)
+    tibble::as_tibble() %>%
+    tibble::rowid_to_column("ROWID") %>%
+    dplyr::rename(FULLPATH = value)
 
   paths_long <- paths_tbl %>%
-    mutate(DIR_LIST = map(FULLPATH, ~ str_split(.x,pattern = "/") %>% unlist),
+    dplyr::mutate(DIR_LIST = purrr::map(FULLPATH, ~ stringr::str_split(.x,pattern = "/") %>% unlist),
            DIR_LIST_UNNEST = DIR_LIST,
-           DEPTH = map_int(DIR_LIST,length)) %>%
-    unnest(DIR_LIST_UNNEST,.drop = F) %>%
-    group_by(ROWID) %>%
-    mutate(id = row_number(),
-           id = map_chr(id,~ ordinal_numbers_1to10[.x,'ord_word'] %>% pull),
+           DEPTH = purrr::map_int(DIR_LIST,length)) %>%
+    tidyr::unnest(DIR_LIST_UNNEST,.drop = F) %>%
+    dplyr::group_by(ROWID) %>%
+   dplyr:: mutate(id = dplyr::row_number(),
+           id = purrr::map_chr(id,~ ordinal_numbers_1to10[.x,'ord_word'] %>% dplyr::pull()),
            id = factor(id, levels = ordinal_numbers_1to10$ord_word)) %>%
-    arrange(id) %>%
-    ungroup
+    dplyr::arrange(id) %>%
+    dplyr::ungroup()
 
   paths_ready <- paths_long %>%
-    spread(id,DIR_LIST_UNNEST)
+    tidyr::spread(id,DIR_LIST_UNNEST)
 
   return(paths_ready)
 
